@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <h1>Visual Object Mapper</h1>
+  </div>
+</div>
+<div class="container">
+	  <hr>
+	  <div class="row">
+			<div class="col-xs-6">
+				<div id="containerSource" style="height: 30px;">
+					<input type="file" id="sourceFile" name="file" />
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div id="containerDest" style="height: 30px;">
+					<input type="file" id="destFile" name="file" />
+				</div>        
+			</div>
+	  </div>
+	  <div class="row">
+		<canvas id="e" height="400"></canvas>
+	  </div>
+</div>
+
+<script lang="javascript">
+
+	var leftMargin = 10;
+	var topMargin = 20;
+	var canvas = document.getElementById("e");
+	canvas.style.backgroundColor = 'rgba(158, 167, 184, 0.2)';
+	canvas.width = window.innerWidth - leftMargin * 2;
+	var context = canvas.getContext("2d");
+	
+	var declTokenStr = "privatestring";
+	
+	// gratuitous comment
+	function handleFileSelect(evt)
+	{
+	    var files = evt.target.files; // FileList object
+	
+	    // Loop through the FileList and render image files as thumbnails.
+	    for (var i = 0, f; f = files[i]; i++)
+	    {
+	        var reader = new FileReader();
+	        reader.onload = (function(reader)
+	        {
+	            return function()
+	            {
+	                var contents = reader.result;
+	                contents = contents.replace(/ /g,'')
+					var res = contents.match(/privatestring\D*;/g); 
+					var first = res[0];
+					var tokenArray = first.split(';');
+					
+					var x = $(evt.target).closest("div").offset().left;
+					context.fillStyle = "blue";
+					context.font = "bold 16px Arial";
+					
+					for (var j = 0; j < tokenArray.length; j++)
+					{
+					  console.log (tokenArray[j]);
+					  context.fillText(tokenArray[j].substr(declTokenStr.length), x, topMargin + j*18);
+					}   
+	            }
+	        })(reader);
+	
+	        reader.readAsText(f);
+	    }
+	}
+
+	document.getElementById('sourceFile').addEventListener('change', handleFileSelect, false);
+	document.getElementById('destFile').addEventListener('change', handleFileSelect, false);
+</script>
+
+
+{% endblock %}

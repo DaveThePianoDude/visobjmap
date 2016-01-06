@@ -1,0 +1,6 @@
+private string one;
+private string two;
+private string three;
+private string four;
+private string five;
+private string ten;
