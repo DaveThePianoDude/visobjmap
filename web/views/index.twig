@@ -62,7 +62,9 @@
 					for (var j = 0; j < tokenArray.length; j++)
 					{
 					  console.log (tokenArray[j]);
-					  context.fillText(tokenArray[j].substr(declTokenStr.length), x, topMargin + j*18);
+					  var varName = tokenArray[j].trim();
+					  console.log(varName.length);
+					  context.fillText(varName.substr(declTokenStr.length), x, topMargin + j*18);
 					}   
 	            }
 	        })(reader);
