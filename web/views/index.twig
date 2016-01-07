@@ -66,9 +66,7 @@
 					
 					for (var j = 0; j < tokenArray.length; j++)
 					{
-					  console.log (tokenArray[j]);
 					  var varName = tokenArray[j].trim();
-					  console.log(varName.length);
 					  wordContext.fillText(varName.substr(declTokenStr.length), x, topMargin + j*18);
 					}   
 	            }
@@ -85,22 +83,24 @@
 	
 	function redraw(){
 	
+		console.log('drawing');
+	
 		  drawContext.clearRect(0, 0, drawContext.drawCanvas.width, drawContext.drawCanvas.height); // Clears the canvas
 		  drawContext.strokeStyle = "#df4b26";
 		  drawContext.lineJoin = "round";
 		  drawContext.lineWidth = 5;
 			
-	  for(var i=0; i < clickX.length; i++) {		
-		drawContext.beginPath();
-		if(clickDrag[i] && i){
-		  drawContext.moveTo(clickX[i-1], clickY[i-1]);
-		 }else{
-		   drawContext.moveTo(clickX[i]-1, clickY[i]);
-		 }
-		 drawContext.lineTo(clickX[i], clickY[i]);
-		 drawContext.closePath();
-		 drawContext.stroke();
-	  }
+		  for(var i=0; i < clickX.length; i++) {		
+			drawContext.beginPath();
+			if(clickDrag[i] && i){
+			  drawContext.moveTo(clickX[i-1], clickY[i-1]);
+			 }else{
+			   drawContext.moveTo(clickX[i]-1, clickY[i]);
+			 }
+			 drawContext.lineTo(clickX[i], clickY[i]);
+			 drawContext.closePath();
+			 drawContext.stroke();
+		  }
 	}
 	
 	function addClick(x, y, dragging)
