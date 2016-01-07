@@ -87,18 +87,18 @@
 		originY: 'center'
 	  });
 	  canvas.add(line);
-	});
+	};
 
 	canvas.onmousemove = function(e){
 	  if (!isDown) return;
 	  var pointer = canvas.getPointer(e);
 	  line.set({ x2: pointer.x, y2: pointer.y });
 	  canvas.renderAll();
-	});
+	};
 
 	canvas.onmouseup = function(e){
 	  isDown = false;
-	});
+	};
 
 	document.getElementById('sourceFile').addEventListener('change', handleFileSelect, false);
 	document.getElementById('destFile').addEventListener('change', handleFileSelect, false);
