@@ -36,13 +36,12 @@
 	wordCanvas.width = window.innerWidth - leftMargin * 2;
 	var wordContext = wordCanvas.getContext("2d");
 	
-	var drawCanvas = document.getElementById("layer1");
-	drawCanvas.width = window.innerWidth - leftMargin * 2;
-	var drawContext = drawCanvas.getContext("2d");
+	//var drawCanvas = document.getElementById("layer1");
+	//drawCanvas.width = window.innerWidth - leftMargin * 2;
+	//var drawContext = drawCanvas.getContext("2d");
 	
 	var declTokenStr = "privatestring";
 	
-	// gratuitous comment
 	function handleFileSelect(evt)
 	{
 	    var files = evt.target.files; // FileList object
@@ -79,58 +78,7 @@
 	    }
 	}
 	
-	var clickX = new Array();
-	var clickY = new Array();
-	var clickDrag = new Array();
-	var isDown;
 	
-	function redraw(){
-	
-		  drawContext.clearRect(0, 0, drawContext.drawCanvas.width, drawContext.drawCanvas.height); // Clears the canvas
-		  drawContext.strokeStyle = "#df4b26";
-		  drawContext.lineJoin = "round";
-		  drawContext.lineWidth = 5;
-			
-	  for(var i=0; i < clickX.length; i++) {		
-		drawContext.beginPath();
-		if(clickDrag[i] && i){
-		  drawContext.moveTo(clickX[i-1], clickY[i-1]);
-		 }else{
-		   drawContext.moveTo(clickX[i]-1, clickY[i]);
-		 }
-		 drawContext.lineTo(clickX[i], clickY[i]);
-		 drawContext.closePath();
-		 drawContext.stroke();
-	  }
-	}
-	
-	function addClick(x, y, dragging)
-	{
-		clickX.push(x);
-		clickY.push(y);
-		clickDrag.push(dragging);
-	}
-	
-	drawCanvas.onmousedown = function(e){
-		var mouseX = e.pageX - this.offsetLeft;
-		var mouseY = e.pageY - this.offsetTop;
-		
-		isDown = true;
-		addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-		redraw();
-	};
-
-	drawCanvas.onmousemove = function(e){
-		if(isDown){
-			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-			redraw();
-		}
-	};
-
-	drawCanvas.onmouseup = function(e){
-		isDown = false;
-	};
-
 	document.getElementById('sourceFile').addEventListener('change', handleFileSelect, false);
 	document.getElementById('destFile').addEventListener('change', handleFileSelect, false);
 </script>
