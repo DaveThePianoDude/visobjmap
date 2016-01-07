@@ -75,9 +75,18 @@
 	
 	var line, isDown;
 	
+	// get mouse pos relative to canvas (yours is fine, this is just different)
+	function getMousePos(canvas, evt) {
+		var rect = canvas.getBoundingClientRect();
+		return {
+			x: evt.clientX - rect.left,
+			y: evt.clientY - rect.top
+		};
+	}
+	
 	canvas.onmousedown = function(e){
 	  isDown = true;
-	  var pointer = canvas.getPointer(e);
+	  var pointer = getMousePos(canvas, e);
 	  var points = [ pointer.x, pointer.y, pointer.x, pointer.y ];
 	  line = new fabric.Line(points, {
 		strokeWidth: 5,
@@ -91,7 +100,7 @@
 
 	canvas.onmousemove = function(e){
 	  if (!isDown) return;
-	  var pointer = canvas.getPointer(e);
+	  var pointer = getMousePos(canvas, e);
 	  line.set({ x2: pointer.x, y2: pointer.y });
 	  canvas.renderAll();
 	};
