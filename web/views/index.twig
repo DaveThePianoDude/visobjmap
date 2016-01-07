@@ -21,7 +21,7 @@
 			</div>
 	  </div>
 	  <div class="row">
-		<canvas id="e" height="400"></canvas>
+		<canvas id="canv" height="400"></canvas>
 	  </div>
 </div>
 
@@ -31,7 +31,7 @@
 
 	var leftMargin = 10;
 	var topMargin = 20;
-	var canvas = document.getElementById("e");
+	var canvas = new fabric.Canvas('canv', { selection: false });
 	canvas.style.backgroundColor = 'rgba(158, 167, 184, 0.2)';
 	canvas.width = window.innerWidth - leftMargin * 2;
 	var context = canvas.getContext("2d");
@@ -74,21 +74,12 @@
 	        reader.readAsText(f);
 	    }
 	}
-	
+
 	var line, isDown;
-	
-	// get mouse pos relative to canvas (yours is fine, this is just different)
-	function getMousePos(canvas, evt) {
-		var rect = canvas.getBoundingClientRect();
-		return {
-			x: evt.clientX - rect.left,
-			y: evt.clientY - rect.top
-		};
-	}
-	
-	canvas.onmousedown = function(e){
+
+	canvas.on('mouse:down', function(o){
 	  isDown = true;
-	  var pointer = getMousePos(canvas, e);
+	  var pointer = canvas.getPointer(o.e);
 	  var points = [ pointer.x, pointer.y, pointer.x, pointer.y ];
 	  line = new fabric.Line(points, {
 		strokeWidth: 5,
@@ -98,18 +89,18 @@
 		originY: 'center'
 	  });
 	  canvas.add(line);
-	};
+	});
 
-	canvas.onmousemove = function(e){
+	canvas.on('mouse:move', function(o){
 	  if (!isDown) return;
-	  var pointer = getMousePos(canvas, e);
+	  var pointer = canvas.getPointer(o.e);
 	  line.set({ x2: pointer.x, y2: pointer.y });
 	  canvas.renderAll();
-	};
+	});
 
-	canvas.onmouseup = function(e){
+	canvas.on('mouse:up', function(o){
 	  isDown = false;
-	};
+	});
 
 	document.getElementById('sourceFile').addEventListener('change', handleFileSelect, false);
 	document.getElementById('destFile').addEventListener('change', handleFileSelect, false);
