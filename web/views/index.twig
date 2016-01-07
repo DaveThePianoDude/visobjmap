@@ -111,7 +111,7 @@
 		clickDrag.push(dragging);
 	}
 	
-	canvas.onmousedown = function(e){
+	drawCanvas.onmousedown = function(e){
 		var mouseX = e.pageX - this.offsetLeft;
 		var mouseY = e.pageY - this.offsetTop;
 		
@@ -120,14 +120,14 @@
 		redraw();
 	};
 
-	canvas.onmousemove = function(e){
+	drawCanvas.onmousemove = function(e){
 		if(isDown){
 			addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
 			redraw();
 		}
 	};
 
-	canvas.onmouseup = function(e){
+	drawCanvas.onmouseup = function(e){
 		isDown = false;
 	};
 
