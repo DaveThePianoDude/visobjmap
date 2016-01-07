@@ -21,7 +21,8 @@
 			</div>
 	  </div>
 	  <div class="row">
-		<canvas id="e" height="400"></canvas>
+		<canvas id="layer1" height="400" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+		<canvas id="layer2" height="400" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
 	  </div>
 </div>
 
@@ -29,10 +30,15 @@
 
 	var leftMargin = 10;
 	var topMargin = 20;
-	var canvas = document.getElementById("e");
-	canvas.style.backgroundColor = 'rgba(158, 167, 184, 0.2)';
-	canvas.width = window.innerWidth - leftMargin * 2;
-	var context = canvas.getContext("2d");
+	
+	var wordCanvas = document.getElementById("layer2");
+	wordCanvas.style.backgroundColor = 'rgba(158, 167, 184, 0.2)';
+	wordCanvas.width = window.innerWidth - leftMargin * 2;
+	var wordContext = wordCanvas.getContext("2d");
+	
+	var drawCanvas = document.getElementById("layer1");
+	drawCanvas.width = window.innerWidth - leftMargin * 2;
+	var drawContext = drawCanvas.getContext("2d");
 	
 	var declTokenStr = "privatestring";
 	
@@ -56,15 +62,15 @@
 					var tokenArray = first.split(';');
 					
 					var x = $(evt.target).closest("div").offset().left;
-					context.fillStyle = "blue";
-					context.font = "bold 16px Arial";
+					wordContext.fillStyle = "blue";
+					wordContext.font = "bold 16px Arial";
 					
 					for (var j = 0; j < tokenArray.length; j++)
 					{
 					  console.log (tokenArray[j]);
 					  var varName = tokenArray[j].trim();
 					  console.log(varName.length);
-					  context.fillText(varName.substr(declTokenStr.length), x, topMargin + j*18);
+					  wordContext.fillText(varName.substr(declTokenStr.length), x, topMargin + j*18);
 					}   
 	            }
 	        })(reader);
@@ -79,22 +85,22 @@
 	var isDown;
 	
 	function redraw(){
-		  context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-		  
-		  context.strokeStyle = "#df4b26";
-		  context.lineJoin = "round";
-		  context.lineWidth = 5;
+	
+		  drawContext.clearRect(0, 0, drawContext.canvas.width, drawContext.canvas.height); // Clears the canvas
+		  drawContext.strokeStyle = "#df4b26";
+		  drawContext.lineJoin = "round";
+		  drawContext.lineWidth = 5;
 			
 	  for(var i=0; i < clickX.length; i++) {		
-		context.beginPath();
+		drawContext.beginPath();
 		if(clickDrag[i] && i){
-		  context.moveTo(clickX[i-1], clickY[i-1]);
+		  drawContext.moveTo(clickX[i-1], clickY[i-1]);
 		 }else{
-		   context.moveTo(clickX[i]-1, clickY[i]);
+		   drawContext.moveTo(clickX[i]-1, clickY[i]);
 		 }
-		 context.lineTo(clickX[i], clickY[i]);
-		 context.closePath();
-		 context.stroke();
+		 drawContext.lineTo(clickX[i], clickY[i]);
+		 drawContext.closePath();
+		 drawContext.stroke();
 	  }
 	}
 	
