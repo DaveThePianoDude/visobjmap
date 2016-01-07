@@ -75,9 +75,9 @@
 	
 	var line, isDown;
 	
-	canvas.on('mouse:down', function(o){
+	canvas.onmousedown = function(e){
 	  isDown = true;
-	  var pointer = canvas.getPointer(o.e);
+	  var pointer = canvas.getPointer(e);
 	  var points = [ pointer.x, pointer.y, pointer.x, pointer.y ];
 	  line = new fabric.Line(points, {
 		strokeWidth: 5,
@@ -89,14 +89,14 @@
 	  canvas.add(line);
 	});
 
-	canvas.on('mouse:move', function(o){
+	canvas.onmousemove = function(e){
 	  if (!isDown) return;
-	  var pointer = canvas.getPointer(o.e);
+	  var pointer = canvas.getPointer(e);
 	  line.set({ x2: pointer.x, y2: pointer.y });
 	  canvas.renderAll();
 	});
 
-	canvas.on('mouse:up', function(o){
+	canvas.onmouseup = function(e){
 	  isDown = false;
 	});
 
