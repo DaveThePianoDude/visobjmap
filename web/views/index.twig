@@ -82,45 +82,29 @@
 	
 	function redraw(){
 	
-		  //drawContext.clearRect(0, 0, drawContext.drawCanvas.width, drawContext.drawCanvas.height); // Clears the canvas
-		  drawContext.strokeStyle = "#df4b26";
-		  drawContext.lineJoin = "round";
-		  drawContext.lineWidth = 5;
-			
-		  //for(var i=0; i < clickX.length; i++) {		
-			drawContext.beginPath();
-			//if(clickDrag[i] && i){
-			   //drawContext.moveTo(clickX[i-1], clickY[i-1]);
-			//}else{
-			   drawContext.moveTo(startX, startY);
-			//}
-			 drawContext.lineTo(currX, currY);
-			 drawContext.closePath();
-			 drawContext.stroke();
-		  //}
+		drawContext.clearRect(0, 0, drawContext.drawCanvas.width, drawContext.drawCanvas.height); // Clears the canvas
+		drawContext.strokeStyle = "#df4b26";
+		drawContext.lineJoin = "round";
+		drawContext.lineWidth = 5;
+								
+		drawContext.beginPath();
+		drawContext.moveTo(startX, startY);
+		drawContext.lineTo(currX, currY);
+		drawContext.stroke();
 	}
 	
-	//function addClick(x, y, dragging)
-	//{
-	//	clickX.push(x);
-	//	clickY.push(y);
-	//	clickDrag.push(dragging);
-	//}
-	
 	drawCanvas.onmousedown = function(e){
-		var startX = e.pageX - this.offsetLeft;
-		var startY = e.pageY - this.offsetTop;
-		var currX = startX;
-		var currY = startY;
+		startX = e.pageX - this.offsetLeft;
+		startY = e.pageY - this.offsetTop;
+		currX = startX;
+		currY = startY;
 		
 		isDown = true;
-		//addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
 		redraw();
 	};
 
 	drawCanvas.onmousemove = function(e){
 		if(isDown){
-			//addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
 			currX = e.pageX - this.offsetLeft;
 			currY = e.pageY - this.offsetTop;
 			redraw();
