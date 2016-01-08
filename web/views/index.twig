@@ -92,9 +92,9 @@
 			//if(clickDrag[i] && i){
 			   //drawContext.moveTo(clickX[i-1], clickY[i-1]);
 			//}else{
-			   drawContext.moveTo(clickX[0], clickY[0]);
+			   drawContext.moveTo(startX, startY);
 			//}
-			 drawContext.lineTo(clickX[clickX.length], clickY[clickX.length]);
+			 drawContext.lineTo(currX, currY);
 			 drawContext.closePath();
 			 drawContext.stroke();
 		  //}
