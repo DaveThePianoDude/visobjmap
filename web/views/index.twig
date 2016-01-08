@@ -83,6 +83,8 @@
 	function redraw(){
 		
 		drawContext.strokeStyle = "#FFFFFF";
+		drawContext.lineJoin = "round";
+		drawContext.lineWidth = 5;
 		
 		drawContext.beginPath();
 		drawContext.moveTo(startX, startY);
@@ -91,7 +93,7 @@
 			
 		drawContext.strokeStyle = "#df4b26";
 		drawContext.lineJoin = "round";
-		drawContext.lineWidth = 5;
+		drawContext.lineWidth = 3;
 								
 		drawContext.beginPath();
 		drawContext.moveTo(startX, startY);
