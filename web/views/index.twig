@@ -82,10 +82,13 @@
 	
 	function redraw(){
 		
-		if (oldX != currX && oldY != currY)
+		drawContext.strokeStyle = "#FFFFFF";
 		
-			context.clearRect(0, 0, canvas.width, canvas.height);
-	
+		drawContext.beginPath();
+		drawContext.moveTo(startX, startY);
+		drawContext.lineTo(oldX, oldY);
+		drawContext.stroke();
+			
 		drawContext.strokeStyle = "#df4b26";
 		drawContext.lineJoin = "round";
 		drawContext.lineWidth = 5;
