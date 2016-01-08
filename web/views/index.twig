@@ -76,9 +76,12 @@
 	    }
 	}
 	
-	var startX, startY, currX, currY, oldX, oldY;
-
-	var isDown;
+	var legacyLines = new Array();
+	
+	var mapStartX = new Array();
+	var mapStartY = new Array();
+	var mapEndX = new Array();
+	var mapEndY = new Array();
 	
 	function redraw(){
 		
@@ -90,6 +93,15 @@
 		drawContext.moveTo(startX, startY);
 		drawContext.lineTo(oldX, oldY);
 		drawContext.stroke();
+		
+		for (int i = 0; i < legacyLines.length; i++)
+		{
+			var l = legacyLines[i];
+			drawContext.beginPath();
+			drawContext.moveTo(l.startX, l.startY);
+			drawContext.lineTo(l.oldX, l.oldY);
+			drawContext.stroke();
+		}
 			
 		drawContext.strokeStyle = "#df4b26";
 		drawContext.lineJoin = "round";
@@ -109,6 +121,8 @@
 		startY = e.pageY - this.offsetTop;
 		oldX = startX;
 		oldY = startY;
+		currX = startX;
+		currY = startY;
 		
 		isDown = true;
 		redraw();
@@ -123,6 +137,15 @@
 	};
 
 	drawCanvas.onmouseup = function(e){
+		var l = {
+		  'startX': startX,
+		  'startY': startY,
+		  'endX': endX,
+		  'endY': endY
+		};
+		
+		legacyLines.push(l);
+	
 		isDown = false;
 	};
 
