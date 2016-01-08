@@ -107,7 +107,7 @@
 		drawContext.strokeStyle = "#df4b26";
 		drawContext.lineJoin = "round";
 		
-		drawContext.lineWidth = 3;
+		drawContext.lineWidth = 2;
 		
 		for (var i = 0; i < legacyLines.length; i++)
 		{
@@ -117,6 +117,8 @@
 			drawContext.lineTo(line.endX, line.endY);
 			drawContext.stroke();
 		}
+		
+		drawContext.lineWidth = 3;
 								
 		drawContext.beginPath();
 		drawContext.moveTo(startX, startY);
