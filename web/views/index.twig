@@ -112,7 +112,7 @@
 			var line = legacyLines[i];
 			drawContext.beginPath();
 			drawContext.moveTo(line.startX, line.startY);
-			drawContext.lineTo(line.oldX, line.oldY);
+			drawContext.lineTo(line.endX, line.endY);
 			drawContext.stroke();
 		}
 		
