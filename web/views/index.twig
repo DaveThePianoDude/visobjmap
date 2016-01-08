@@ -81,6 +81,10 @@
 	var isDown;
 	
 	function redraw(){
+		
+		if (oldX != currX && oldY != currY)
+		
+			context.clearRect(0, 0, canvas.width, canvas.height);
 	
 		drawContext.strokeStyle = "#df4b26";
 		drawContext.lineJoin = "round";
@@ -89,13 +93,6 @@
 		drawContext.beginPath();
 		drawContext.moveTo(startX, startY);
 		drawContext.lineTo(currX, currY);
-		drawContext.stroke();
-		
-		drawContext.strokeStyle = "#FFFFFF";
-		
-		drawContext.beginPath();
-		drawContext.moveTo(startX, startY);
-		drawContext.lineTo(oldX, oldY);
 		drawContext.stroke();
 		
 		oldX = currX;
