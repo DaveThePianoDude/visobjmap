@@ -7,23 +7,23 @@
   </div>
 </div>
 <div class="container">
-	  <hr>
-	  <div class="row">
-			<div class="col-xs-6">
-				<div id="containerSource" style="height: 30px;">
-					<input type="file" id="sourceFile" name="file" />
-				</div>
-			</div>
-			<div class="col-xs-6">
-				<div id="containerDest" style="height: 30px;">
-					<input type="file" id="destFile" name="file" />
-				</div>        
-			</div>
-	  </div>
-	  <div class="row">
-		<canvas id="layer1" height="400" style="position: absolute; left: 0; top: 500; z-index: 1;"></canvas>
-		<canvas id="layer2" height="400" style="position: absolute; left: 0; top: 500; z-index: 0;"></canvas>
-	  </div>
+  <hr>
+  <div class="row">
+	<div class="col-xs-6">
+		<div id="containerSource" style="height: 30px;">
+			<input type="file" id="sourceFile" name="file" />
+		</div>
+	</div>
+	<div class="col-xs-6">
+		<div id="containerDest" style="height: 30px;">
+			<input type="file" id="destFile" name="file" />
+		</div>        
+	</div>
+  </div>
+  <div class="row">
+	<canvas id="layer1" height="400" style="position: absolute; left: 0; top: 500; z-index: 1;"></canvas>
+	<canvas id="layer2" height="400" style="position: absolute; left: 0; top: 500; z-index: 0;"></canvas>
+  </div>
 </div>
 
 <script lang="javascript">
@@ -55,20 +55,20 @@
 	            return function()
 	            {
 	                var contents = reader.result;
-	                contents = contents.replace(/ /g,'')
-					var res = contents.match(/privatestring\D*;/g); 
-					var first = res[0];
-					var tokenArray = first.split(';');
-					
-					var x = $(evt.target).closest("div").offset().left;
-					wordContext.fillStyle = "blue";
-					wordContext.font = "bold 16px Arial";
-					
-					for (var j = 0; j < tokenArray.length; j++)
-					{
-					  var varName = tokenArray[j].trim();
-					  wordContext.fillText(varName.substr(declTokenStr.length), x, topMargin + j*18);
-					}   
+	                contents = contents.replace(/ /g,'');
+			var res = contents.match(/privatestring\D*;/g); 
+			var first = res[0];
+			var tokenArray = first.split(';');
+
+			var x = $(evt.target).closest("div").offset().left;
+			wordContext.fillStyle = "blue";
+			wordContext.font = "bold 16px Arial";
+
+			for (var j = 0; j < tokenArray.length; j++)
+			{
+			  var varName = tokenArray[j].trim();
+			  wordContext.fillText(varName.substr(declTokenStr.length), x, topMargin + j*18);
+			}   
 	            }
 	        })(reader);
 	
@@ -88,17 +88,17 @@
 		  drawContext.lineJoin = "round";
 		  drawContext.lineWidth = 5;
 			
-		  for(var i=0; i < clickX.length; i++) {		
+		  //for(var i=0; i < clickX.length; i++) {		
 			drawContext.beginPath();
-			if(clickDrag[i] && i){
-			  drawContext.moveTo(clickX[i-1], clickY[i-1]);
-			 }else{
-			   drawContext.moveTo(clickX[i]-1, clickY[i]);
-			 }
-			 drawContext.lineTo(clickX[i], clickY[i]);
+			//if(clickDrag[i] && i){
+			   drawContext.moveTo(clickX[i-1], clickY[i-1]);
+			//}else{
+			   drawContext.moveTo(clickX[0], clickY[0]);
+			//}
+			 drawContext.lineTo(clickX[clickX.length], clickY[clickX.length]);
 			 drawContext.closePath();
 			 drawContext.stroke();
-		  }
+		  //}
 	}
 	
 	function addClick(x, y, dragging)
