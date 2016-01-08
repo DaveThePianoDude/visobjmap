@@ -83,6 +83,8 @@
 	var mapEndX = new Array();
 	var mapEndY = new Array();
 	
+	var isDown;
+	
 	function redraw(){
 		
 		drawContext.strokeStyle = "#FFFFFF";
@@ -140,8 +142,8 @@
 		var l = {
 		  'startX': startX,
 		  'startY': startY,
-		  'endX': endX,
-		  'endY': endY
+		  'endX': currX,
+		  'endY': currY
 		};
 		
 		legacyLines.push(l);
