@@ -32,7 +32,7 @@
 	var topMargin = 20;
 	
 	var wordCanvas = document.getElementById("layer2");
-	wordCanvas.style.backgroundColor = 'rgba(158, 167, 184, 0.2)';
+	wordCanvas.style.backgroundColor = 'rgba(255,255,255, 0.2)';
 	wordCanvas.width = window.innerWidth - leftMargin * 2;
 	var wordContext = wordCanvas.getContext("2d");
 	
@@ -76,13 +76,12 @@
 	    }
 	}
 	
-	var startX, startY, currX, currY;
-	var clickDrag = new Array();
+	var startX, startY, currX, currY, oldX, oldY;
+
 	var isDown;
 	
 	function redraw(){
 	
-		drawContext.clearRect(0, 0, drawContext.drawCanvas.width, drawContext.drawCanvas.height); // Clears the canvas
 		drawContext.strokeStyle = "#df4b26";
 		drawContext.lineJoin = "round";
 		drawContext.lineWidth = 5;
@@ -91,13 +90,23 @@
 		drawContext.moveTo(startX, startY);
 		drawContext.lineTo(currX, currY);
 		drawContext.stroke();
+		
+		drawContext.strokeStyle = "#000000";
+		
+		drawContext.beginPath();
+		drawContext.moveTo(startX, startY);
+		drawContext.lineTo(oldX, oldY);
+		drawContext.stroke();
+		
+		oldX = currX;
+		oldY = currY;
 	}
 	
 	drawCanvas.onmousedown = function(e){
 		startX = e.pageX - this.offsetLeft;
 		startY = e.pageY - this.offsetTop;
-		currX = startX;
-		currY = startY;
+		oldX = startX;
+		oldY = startY;
 		
 		isDown = true;
 		redraw();
