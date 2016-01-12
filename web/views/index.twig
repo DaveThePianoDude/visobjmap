@@ -148,13 +148,25 @@
 		oldY = currY;
 	}
 	
+	function SnappedPosition(startX, startY)
+	{
+		for (int j = 0; j < legacyWords.length; j++)
+		if (startX > legacyWords[j].startX && startX < legacyWords[j].startX + legacyWords[j].word.length * 12)
+		{
+			this.x = startX + (legacyWords[j].startX + legacyWords[j].word.length * 12)/2;
+		}
+	
+		//this.x = startX;
+		this.y = startY;
+	}
+	
 	drawCanvas.onmousedown = function(e){
-		startX = e.pageX - this.offsetLeft;
-		startY = e.pageY - this.offsetTop;
-		oldX = startX;
-		oldY = startY;
-		currX = startX;
-		currY = startY;
+		var pos = new SnappedPosition(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+
+		oldX = pos.x;
+		oldY = pos.y;
+		currX = pos.x;
+		currY = pos.y;
 		
 		isDown = true;
 		redraw();
@@ -171,9 +183,7 @@
 	drawCanvas.onmouseup = function(e){
 	
 		var line = new Line(startX, startY, currX, currY);
-		
 		legacyLines.push(line);
-	
 		isDown = false;
 	};
 
