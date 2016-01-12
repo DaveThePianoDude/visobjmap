@@ -104,6 +104,15 @@
 	var isDown;
 	
 	function redraw(){
+					
+		// legacy words
+		drawContext.fillStyle = "blue";
+		drawContext.font = "bold 16px Arial";
+		for (var i = 0; i < legacyWords.length; i++)
+		{
+			var word = legacyWords[i];
+			drawContext.fillText(word.word, word.startX, word.startY);
+		}
 		
 		drawContext.strokeStyle = "#FFFFFF";
 		drawContext.lineJoin = "round";
@@ -118,13 +127,6 @@
 		drawContext.lineJoin = "round";
 		
 		drawContext.lineWidth = 2;
-		
-		// legacy words
-		for (var i = 0; i < legacyWords.length; i++)
-		{
-			var word = legacyWords[i];
-			drawContext.fillText(word.word, word.startX, word.startY);
-		}
 		
 		for (var i = 0; i < legacyLines.length; i++)
 		{
