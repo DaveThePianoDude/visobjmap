@@ -36,6 +36,13 @@
 		this.endY = endY;
 	}
 
+	function Word(word, startX, startY)
+	{
+		this.word = word;
+		this.startX = startX;
+		this.startY = startY;
+	}
+	
 	var leftMargin = 10;
 	var topMargin = 20;
 	
@@ -49,6 +56,10 @@
 	var drawContext = drawCanvas.getContext("2d");
 	
 	var declTokenStr = "privatestring";
+	
+	var wordStartX = new Array();
+	var wordStartY = new Array();
+	var wordWord = new Array();
 	
 	function handleFileSelect(evt)
 	{
@@ -74,9 +85,12 @@
 
 					for (var j = 0; j < tokenArray.length; j++)
 					{
-					  var varName = tokenArray[j].trim();
-					  wordContext.fillText(varName.substr(declTokenStr.length), x, topMargin + j*18);
-					}   
+					  var varName = tokenArray[j].trim();				  	  
+					  var word = new Word(varName.substr(declTokenStr.length), x, topMargin + j*18);
+					  
+					  wordContext.fillText(word.word, word.startX, word.startY);			  
+					  LegacyWords.push(word);
+					}
 	            }
 	        })(reader);
 	
@@ -85,11 +99,7 @@
 	}
 	
 	var legacyLines = new Array();
-	
-	var mapStartX = new Array();
-	var mapStartY = new Array();
-	var mapEndX = new Array();
-	var mapEndY = new Array();
+	var legacyWords = new Array();
 	
 	var isDown;
 	
@@ -116,6 +126,13 @@
 			drawContext.moveTo(line.startX, line.startY);
 			drawContext.lineTo(line.endX, line.endY);
 			drawContext.stroke();
+		}
+		
+		// legacy words
+		for (var i = 0; i < legacyWords.length; i++)
+		{
+			var word = legacyWords[i];
+			wordContext.fillText(word.word, word.startX, word.startY);
 		}
 		
 		drawContext.lineWidth = 3;
