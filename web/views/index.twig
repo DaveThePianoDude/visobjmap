@@ -165,6 +165,8 @@
 	drawCanvas.onmousedown = function(e){
 		var pos = new SnappedPosition(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
 
+		startX = pos.x;
+		startY = pos.y;
 		oldX = pos.x;
 		oldY = pos.y;
 		currX = pos.x;
