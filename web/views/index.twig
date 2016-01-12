@@ -119,6 +119,13 @@
 		
 		drawContext.lineWidth = 2;
 		
+		// legacy words
+		for (var i = 0; i < legacyWords.length; i++)
+		{
+			var word = legacyWords[i];
+			drawContext.fillText(word.word, word.startX, word.startY);
+		}
+		
 		for (var i = 0; i < legacyLines.length; i++)
 		{
 			var line = legacyLines[i];
@@ -126,13 +133,6 @@
 			drawContext.moveTo(line.startX, line.startY);
 			drawContext.lineTo(line.endX, line.endY);
 			drawContext.stroke();
-		}
-		
-		// legacy words
-		for (var i = 0; i < legacyWords.length; i++)
-		{
-			var word = legacyWords[i];
-			wordContext.fillText(word.word, word.startX, word.startY);
 		}
 		
 		drawContext.lineWidth = 3;
