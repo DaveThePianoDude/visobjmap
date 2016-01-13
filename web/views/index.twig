@@ -152,7 +152,8 @@
 	{
 		for (var j = 0; j < legacyWords.length; j++)
 		{
-			if (startX > legacyWords[j].startX && startX < legacyWords[j].startX + legacyWords[j].word.length * 6)
+			if (startX > legacyWords[j].startX && startX < legacyWords[j].startX + legacyWords[j].word.length * 6
+				&& startY > legacyWords[j].startY && startY < legacyWords[j].startY)
 			{
 				this.x = (legacyWords[j].startX + legacyWords[j].word.length * 12)/2;
 				this.y = legacyWords[j].startY + 9;
