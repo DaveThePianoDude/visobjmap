@@ -197,7 +197,9 @@
 
 	drawCanvas.onmouseup = function(e){
 		var pos = new SnappedPosition(currX, currY, legacyWordsR);
-		var line = new Line(startX, startY, pos.x,pos.y);
+		currX = pos.x;
+		currY = pos.y;
+		var line = new Line(startX, startY, currX, currY);
 		legacyLines.push(line);
 		isDown = false;
 	};
