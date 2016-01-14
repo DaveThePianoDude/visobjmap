@@ -85,11 +85,14 @@
 
 					for (var j = 0; j < tokenArray.length; j++)
 					{
-					  var varName = tokenArray[j].trim();				  	  
-					  var word = new Word(varName.substr(declTokenStr.length), x, topMargin + j*18);
+						var varName = tokenArray[j].trim();				  	  
+						var word = new Word(varName.substr(declTokenStr.length), x, topMargin + j*18);
 					  
-					  wordContext.fillText(word.word, word.startX, word.startY);			  
-					  legacyWords.push(word);
+						wordContext.fillText(word.word, word.startX, word.startY);
+						if (x < 250)
+							legacyWordsL.push(word);
+						else
+							legacyWordsR.push(word);
 					}
 	            }
 	        })(reader);
@@ -99,7 +102,8 @@
 	}
 	
 	var legacyLines = new Array();
-	var legacyWords = new Array();
+	var legacyWordsL = new Array();
+	var legacyWordsR = new Array();
 	
 	var isDown;
 	
@@ -108,9 +112,16 @@
 		// legacy words
 		drawContext.fillStyle = "blue";
 		drawContext.font = "bold 16px Arial";
-		for (var i = 0; i < legacyWords.length; i++)
+		
+		for (var i = 0; i < legacyWordsL.length; i++)
 		{
-			var word = legacyWords[i];
+			var word = legacyWordsL[i];
+			drawContext.fillText(word.word, word.startX, word.startY);
+		}
+		
+		for (var i = 0; i < legacyWordsR.length; i++)
+		{
+			var word = legacyWordsR[i];
 			drawContext.fillText(word.word, word.startX, word.startY);
 		}
 		
@@ -148,22 +159,22 @@
 		oldY = currY;
 	}
 	
-	function SnappedPosition(startX, startY)
+	function SnappedPosition(startX, startY, arr)
 	{
-		for (var j = 0; j < legacyWords.length; j++)
+		for (var j = 0; j < arr.length; j++)
 		{
-			if (startX > legacyWords[j].startX && startX < legacyWords[j].startX + legacyWords[j].word.length * 12
-				&& startY < legacyWords[j].startY && startY > legacyWords[j].startY - 18)
-			{
-				this.x = (legacyWords[j].startX + legacyWords[j].word.length * 11);
-				this.y = legacyWords[j].startY - 9;
-				console.log('j=' + j);
+			if (startX > arr[j].startX && startX < arr[j].startX + arr[j].word.length * 12
+				&& startY < arr[j].startY && startY > arr[j].startY - 18)
+			{			
+				this.x = (arr[j].startX + arr[j].word.length * 11);
+				this.y = arr[j].startY;
 			}
 		}
 	}
 	
 	drawCanvas.onmousedown = function(e){
-		var pos = new SnappedPosition(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+	
+		var pos = new SnappedPosition(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, legacyWordsL);
 
 		startX = pos.x;
 		startY = pos.y;
@@ -185,7 +196,7 @@
 	};
 
 	drawCanvas.onmouseup = function(e){
-	
+		var pos = new SnappedPosition(currX, currY, legacyWordsR);
 		var line = new Line(startX, startY, currX, currY);
 		legacyLines.push(line);
 		isDown = false;
