@@ -199,28 +199,10 @@
 		var pos = new SnappedPosition(currX, currY, legacyWordsR);
 		currX = pos.x;
 		currY = pos.y;
-
-		drawContext.strokeStyle = "#FFFFFF";
-		drawContext.lineJoin = "round";
-		drawContext.lineWidth = 5;
-		
-		drawContext.beginPath();
-		drawContext.moveTo(startX, startY);
-		drawContext.lineTo(oldX, oldY);
-		drawContext.stroke();
-		
-		drawContext.strokeStyle = "#df4b26";
-		drawContext.lineJoin = "round";
-		
-		drawContext.lineWidth = 2;
-		
-		drawContext.beginPath();
-		drawContext.moveTo(startX, startY);
-		drawContext.lineTo(currX, currY);
-		drawContext.stroke();
 		
 		var line = new Line(startX, startY, currX, currY);
 		legacyLines.push(line);
+		redraw();
 		isDown = false;
 	};
 
