@@ -108,7 +108,17 @@
 	var isDown;
 	
 	function redraw(){
-					
+				
+		
+		drawContext.strokeStyle = "#FFFFFF";
+		drawContext.lineJoin = "round";
+		drawContext.lineWidth = 5;
+		
+		drawContext.beginPath();
+		drawContext.moveTo(startX, startY);
+		drawContext.lineTo(oldX, oldY);
+		drawContext.stroke();
+			
 		// legacy words
 		drawContext.fillStyle = "blue";
 		drawContext.font = "bold 16px Arial";
@@ -124,15 +134,6 @@
 			var word = legacyWordsR[i];
 			drawContext.fillText(word.word, word.startX, word.startY);
 		}
-		
-		drawContext.strokeStyle = "#FFFFFF";
-		drawContext.lineJoin = "round";
-		drawContext.lineWidth = 5;
-		
-		drawContext.beginPath();
-		drawContext.moveTo(startX, startY);
-		drawContext.lineTo(oldX, oldY);
-		drawContext.stroke();
 			
 		drawContext.strokeStyle = "#df4b26";
 		drawContext.lineJoin = "round";
@@ -203,8 +204,6 @@
 		var pos = new SnappedPosition(currX, currY, legacyWordsR);
 		currX = pos.x;
 		currY = pos.y;
-		oldX = currX;
-		oldY = currY;
 		
 		var line = new Line(startX, startY, currX, currY);
 		legacyLines.push(line);
