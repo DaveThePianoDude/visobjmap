@@ -203,11 +203,13 @@
 		var pos = new SnappedPosition(currX, currY, legacyWordsR);
 		currX = pos.x;
 		currY = pos.y;
+		oldX = currX;
+		oldY = currY;
 		
 		var line = new Line(startX, startY, currX, currY);
 		legacyLines.push(line);
-		redraw();
 		isDown = false;
+		redraw();
 	};
 
 	document.getElementById('sourceFile').addEventListener('change', handleFileSelect, false);
