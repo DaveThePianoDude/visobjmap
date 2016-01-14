@@ -165,9 +165,13 @@
 		{
 			if (startX > arr[j].startX && startX < arr[j].startX + arr[j].word.length * 12
 				&& startY < arr[j].startY && startY > arr[j].startY - 18)
-			{			
-				this.x = (arr[j].startX + arr[j].word.length * 11);
-				this.y = arr[j].startY;
+			{		
+				if (isDown)
+					this.x = arr[j].startX;
+				else
+					this.x = arr[j].startX + arr[j].word.length * 11;
+					
+				this.y = arr[j].startY - 6;
 			}
 		}
 	}
